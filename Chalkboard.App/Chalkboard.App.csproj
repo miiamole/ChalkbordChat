@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ChackBoard.Data\ChackBoard.Data.csproj" />
+  </ItemGroup>
+
 </Project>
