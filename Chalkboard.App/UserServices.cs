@@ -15,7 +15,7 @@ namespace Chalkboard.App
         }
 
 
-        public async Task<IActionResult<IdentityUser>> UserToLogIn(string username, string password)
+        public async Task<IdentityUser> LogInUser(string username, string password)
         {
             IdentityUser? userToLogIn = await _userManager.FindByNameAsync(username);
             if (userToLogIn != null)
@@ -25,12 +25,50 @@ namespace Chalkboard.App
                 {
                     return userToLogIn;
                 }
+                else
+                {
+                    throw new Exception("Password not a match");
+                }
             }
 
-            throw new ;
+            return null;
+        }
+
+
+        public async Task<IdentityUser> RegisterUser(string username, string password, string email)
+        {
+            IdentityUser newUser = new()
+            {
+                UserName = username,
+                Email = email
+            };
+
+            var createUserResult = await _userManager.CreateAsync(newUser);
+            if (createUserResult.Succeeded)
+            {
+                IdentityUser? userToLogIn = await _userManager.FindByNameAsync(username);
+
+                var createSignInResult = await _signInManager.PasswordSignInAsync(userToLogIn, password, false, true);
+                if (createSignInResult.Succeeded)
+                {
+                    return newUser;
+                }
+                else
+                {
+                    throw new Exception("");
+                }
+
+            }
+            else
+            {
+
+            }
+
+
         }
 
     }
+
 
 
 
