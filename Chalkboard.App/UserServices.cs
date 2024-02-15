@@ -2,7 +2,6 @@
 
 namespace Chalkboard.App
 {
-
     public class UserServices
     {
         private UserManager<IdentityUser> _userManager;
@@ -71,8 +70,6 @@ namespace Chalkboard.App
         }
 
     }
-
-
 
 
 }
