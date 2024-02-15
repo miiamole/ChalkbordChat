@@ -1,12 +1,6 @@
 ﻿using ChackBoard.Data.Database;
 using ChackBoard.Data.Model;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace ChackBoard.Data.Repositories
 {
@@ -42,7 +36,7 @@ namespace ChackBoard.Data.Repositories
                 await _context.Messages.AddAsync(newMessage);
                 await _context.SaveChangesAsync();
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
 
                 //catch error
@@ -55,7 +49,7 @@ namespace ChackBoard.Data.Repositories
         {
             MessageModel? messagetoUpdate = await _context.Messages.FirstOrDefaultAsync(m => m.Id == id);
 
-            if(messagetoUpdate == null)
+            if (messagetoUpdate == null)
             {
                 return "something went wrong, check your variables";
             }
@@ -65,14 +59,15 @@ namespace ChackBoard.Data.Repositories
 
             return messagetoUpdate.Message;
         }
-        
+
         public bool DeleteMessage(MessageModel messageToDelete)
         {
-            
+
             try
             {
                 _context.Messages.Remove(messageToDelete);
-            }catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 StatusMessage = ex.Message;
                 return false;
@@ -80,7 +75,7 @@ namespace ChackBoard.Data.Repositories
             return true;
         }
 
-        
+
 
     }
 }
