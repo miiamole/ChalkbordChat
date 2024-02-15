@@ -1,3 +1,4 @@
+using ChackBoard.Data.Model;
 using Chalkboard.App;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -6,19 +7,21 @@ namespace ChalktBoardChat.UI.Pages
 {
     public class IndexModel : PageModel
     {
-        public UserServices services;
+        public UserServices Uservice;
+        public MessageServices Mservice { get; set; }
         private IdentityUser user { get; set; }
+        private List<MessageModel> messages { get; set; }
 
-        private readonly ILogger<IndexModel> _logger;
-
-        public IndexModel(ILogger<IndexModel> logger)
+        public IndexModel(UserServices service, MessageServices mService)
         {
-            _logger = logger;
+            Uservice = service;
+            Mservice = mService;
+
         }
 
         public void OnGet()
         {
-
+            messages = Mservice.GetAll().ToList();
         }
     }
 }
