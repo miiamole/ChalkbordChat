@@ -43,7 +43,10 @@ namespace Chalkboard.App
                 Email = email
             };
 
-            var createUserResult = await _userManager.CreateAsync(newUser);
+            //Skapa en user med password
+            var createUserResult = await _userManager.CreateAsync(newUser, password);
+
+
             if (createUserResult.Succeeded)
             {
                 IdentityUser? userToLogIn = await _userManager.FindByNameAsync(username);
