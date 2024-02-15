@@ -1,7 +1,25 @@
+using ChackBoard.Data.Database;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+
+
+//Hämtar de connectionsStrings som behövs
+var chalkDbConnectionString = builder.Configuration.GetConnectionString("ChalkboardDbConnection");
+var auth_connectionString = builder.Configuration.GetConnectionString("AuthDbConnection");
+
+
+//lägger till båda dbcontext till buildern 
+builder.Services.AddDbContext<ChalkboardDbContext>(options => options.UseSqlServer(chalkDbConnectionString));
+builder.Services.AddDbContext<AuthDbContext>(options => options.UseSqlServer(auth_connectionString));
+
+//lägger till identityuser och roller till buildern, och använder AuthDbContext
+builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<AuthDbContext>();
+
 
 var app = builder.Build();
 
@@ -17,6 +35,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+//kräver authentication
+app.UseAuthentication();
 
 app.UseAuthorization();
 
