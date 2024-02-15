@@ -1,0 +1,36 @@
+﻿@page
+@model ChalktBoardChat.UI.Pages.Chalkboard.IndexModel
+@{
+}
+<div class="text-center bg-success p-2 text-dark bg-opacity-50">
+
+	<h1 class="text-center text-success">Welcome to Chalkboard chat</h1>
+
+	<p class="text-center">
+		This platform offers a seamless messaging experience,
+		enabling users to engage in real-time conversations, share ideas, and collaborate effortlessly.
+		Whether it's connecting with colleagues, organizing group discussions, or simply staying in touch with friends,
+		Chalkboard chat fosters meaningful interactions.
+	</p>
+
+
+	<div>
+		<form method="post">
+			<input type="text" placeholder="Username" asp-for="Username" />
+			<br />
+			<br />
+
+			<input type="password" placeholder="Password" asp-for="Password" />
+			<br />
+			<br />
+			<input class="btn-success" type="submit" value="Log in" />
+		</form>
+
+			<div>
+				<a asp-route="/Chalkboard/Signup">Not a member yet? Sign up now!</a>
+
+			</div>
+			
+		
+	</div>
+</div>
