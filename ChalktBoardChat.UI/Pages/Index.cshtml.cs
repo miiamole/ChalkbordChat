@@ -21,7 +21,7 @@ namespace ChalktBoardChat.UI.Pages
 
         public void OnGet()
         {
-            messages = Mservice.GetAll().ToList();
+
         }
     }
 }

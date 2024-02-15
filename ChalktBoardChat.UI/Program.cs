@@ -22,10 +22,11 @@ builder.Services.AddScoped<MessageRepository>();
 builder.Services.AddScoped<MessageServices>();
 
 builder.Services.AddDbContext<AuthDbContext>(options => options.UseSqlServer(auth_connectionString));
-builder.Services.AddScoped<UserServices>();
 
 //lägger till identityuser och roller till buildern, och använder AuthDbContext
 builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<AuthDbContext>();
+builder.Services.AddScoped<UserServices>();
+
 
 
 
