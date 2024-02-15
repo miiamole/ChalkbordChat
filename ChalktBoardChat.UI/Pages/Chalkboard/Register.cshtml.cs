@@ -1,39 +1,62 @@
-using Microsoft.AspNetCore.Identity;
+using Chalkboard.App;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.ComponentModel.DataAnnotations;
 
 namespace ChalktBoardChat.UI.Pages.Chalkboard
 {
+	[BindProperties]
 	public class RegisterModel : PageModel
 	{
 
-		private readonly SignInManager<IdentityUser> _signInManager;
-		private readonly UserManager<IdentityUser> _userManager;
+
+		private readonly UserServices _userServices;
 		public string? Username { get; set; }
 
 		public string? Password { get; set; }
-
+		[EmailAddress]
 		public string Email { get; set; }
 
 
-		public RegisterModel(SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager)
+		public RegisterModel(UserServices userServices)
 		{
-			_signInManager = signInManager;
-			_userManager = userManager;
+
+			_userServices = userServices;
 		}
-
-
-
 		public void OnGet()
 		{
 		}
+		public async Task<IActionResult> OnPostAsync()
+		{
+			if (ModelState.IsValid)
+			{
+				try
+				{
+					var user = await _userServices.RegisterUser(Username, Password, Email);
+					if (user != null)
+					{
+						//logga in användaren
+						var signedInUser = await _userServices.LogInUser(Username, Password);
+						if (signedInUser != null)
+						{
 
-		//om man skapat en ny user
-		//logga in den
-		//skicka dem till message sidan
-		//lyckas man inte skapa, skicka dem till index
-
-
-
-
+							return RedirectToPage("/Chalkboard/Message");
+						}
+						//return RedirectToPage("/Chalkboard/Message");
+					}
+					else
+					{
+						ModelState.AddModelError(string.Empty, "Somthing went wrong.");
+					}
+				}
+				catch (Exception ex)
+				{
+					ModelState.AddModelError(string.Empty, "Something went wrong: " + ex.Message);
+				}
+			}
+			return RedirectToPage("/Chalkboard/Index");
+			//return Page(); 
+			//Känns som att det borde vara return Page(); fattar dock inte varför
+		}
 	}
 }
