@@ -3,7 +3,7 @@ using ChackBoard.Data.Repositories;
 
 namespace Chalkboard.App
 {
-    internal class MessageServices
+    public class MessageServices
     {
         private MessageRepository _Mrepo;
 
