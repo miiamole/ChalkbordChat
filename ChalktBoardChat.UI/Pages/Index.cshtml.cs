@@ -1,15 +1,22 @@
-using Microsoft.AspNetCore.Mvc;
+using ChackBoard.Data.Model;
+using Chalkboard.App;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace ChalktBoardChat.UI.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly ILogger<IndexModel> _logger;
+        public UserServices Uservice;
+        public MessageServices Mservice { get; set; }
+        private IdentityUser user { get; set; }
+        private List<MessageModel> messages { get; set; }
 
-        public IndexModel(ILogger<IndexModel> logger)
+        public IndexModel(UserServices service, MessageServices mService)
         {
-            _logger = logger;
+            Uservice = service;
+            Mservice = mService;
+
         }
 
         public void OnGet()

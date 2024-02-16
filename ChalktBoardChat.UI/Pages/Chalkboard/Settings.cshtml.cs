@@ -2,10 +2,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
 
-namespace ChalktBoardChat.UI.Pages.Member
+namespace ChalktBoardChat.UI.Pages.Chalkboard
 {
 	[BindProperties]
-	public class UpdateUserModel : PageModel
+	public class SettingsModel : PageModel
 	{
 		public string? OriginalUsername { get; set; }
 		public string? OriginalPassword { get; set; }
