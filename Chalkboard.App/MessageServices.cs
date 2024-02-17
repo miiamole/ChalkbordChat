@@ -12,34 +12,34 @@ namespace Chalkboard.App
 			_Mrepo = Mrepo;
 		}
 
-		public IEnumerable<MessageModel> GetAll()
+		public async Task<IEnumerable<MessageModel>> GetAllAsync()
 		{
-			return _Mrepo.GetAllAsync().Result.OrderByDescending(m => m.Date);
+			return (await _Mrepo.GetAllAsync()).OrderByDescending(m => m.Date);
 		}
 
-		public MessageModel? GetMessageById(int id)
+		public async Task<MessageModel?> GetMessageByIdAsync(int id)
 		{
-			return _Mrepo.GetMessageById(id).Result;
+			return await _Mrepo.GetMessageByIdAsync(id);
 		}
 
-		public MessageModel? GetMessageByUsername(string username)
+		public async Task<MessageModel?> GetMessageByUsername(string username)
 		{
-			return _Mrepo.GetMessageByUsername(username).Result;
+			return await _Mrepo.GetMessageByUsernameAsync(username);
 		}
 
-		public IEnumerable<MessageModel> CreateMessage(MessageModel newMessage)
+		public async Task<IEnumerable<MessageModel>> CreateMessageAsync(MessageModel newMessage)
 		{
-			return _Mrepo.CreateMessage(newMessage).Result;
+			return await _Mrepo.CreateMessageAsync(newMessage);
 		}
 
-		public string UpdateMessage(int id, string message)
+		public async Task<string> UpdateMessageAsync(int id, string message)
 		{
-			return _Mrepo.UpdateMessage(id, message).Result;
+			return await _Mrepo.UpdateMessageAsync(id, message);
 		}
 
-		public async Task<bool> DeleteMessage(MessageModel messageToDelete)
+		public async Task<bool> DeleteMessageAsync(MessageModel messageToDelete)
 		{
-			return await _Mrepo.DeleteMessage(messageToDelete);
+			return await _Mrepo.DeleteMessageAsync(messageToDelete);
 		}
 	}
 }

@@ -19,17 +19,17 @@ namespace ChackBoard.Data.Repositories
 			return await _context.Messages.ToListAsync();
 		}
 
-		public async Task<MessageModel?> GetMessageById(int id)
+		public async Task<MessageModel?> GetMessageByIdAsync(int id)
 		{
 			return await _context.Messages.FirstOrDefaultAsync(m => m.Id == id);
 		}
 
-		public async Task<MessageModel?> GetMessageByUsername(string username)
+		public async Task<MessageModel?> GetMessageByUsernameAsync(string username)
 		{
 			return await _context.Messages.FirstOrDefaultAsync(m => m.Username == username);
 		}
 
-		public async Task<IEnumerable<MessageModel>> CreateMessage(MessageModel newMessage)
+		public async Task<IEnumerable<MessageModel>> CreateMessageAsync(MessageModel newMessage)
 		{
 			try
 			{
@@ -45,7 +45,7 @@ namespace ChackBoard.Data.Repositories
 			return await GetAllAsync();
 		}
 
-		public async Task<string> UpdateMessage(int id, string message)
+		public async Task<string> UpdateMessageAsync(int id, string message)
 		{
 			MessageModel? messagetoUpdate = await _context.Messages.FirstOrDefaultAsync(m => m.Id == id);
 
@@ -60,7 +60,7 @@ namespace ChackBoard.Data.Repositories
 			return messagetoUpdate.Message;
 		}
 
-		public async Task<bool> DeleteMessage(MessageModel messageToDelete)
+		public async Task<bool> DeleteMessageAsync(MessageModel messageToDelete)
 		{
 
 			try
