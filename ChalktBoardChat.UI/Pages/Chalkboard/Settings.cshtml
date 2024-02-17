@@ -2,3 +2,46 @@
 @model ChalktBoardChat.UI.Pages.Chalkboard.SettingsModel
 @{
 }
+<div class="row h-100 justify-content-evenly">
+	<div class="col-12 col-md-5 col-xl-3">
+		<h4>Update username</h4>
+		<form method="post" name="updateUsernameForm">
+			<label for="username">Current username: </label>
+			<input class="d-block" name="originalUsername" type="text" value="@User.Identity.Name" readonly />
+			<label for="newUsername">New username: </label>
+			<input class="d-block" name="newUsername" type="text" asp-for="@Model.NewUsername" />
+			<input style="margin:2%" class="btn btn-success" type="submit" value="Update username" asp-page-handler="UpdateUsername" />
+		</form>
+	</div>
+	<div class="col-12 col-md-5 col-xl-3">
+		<h4>Update password</h4>
+		<p>Password needs to be at least 8 characters long and contain:</p>
+		<ul>
+			<li>Uppercase letter</li>
+			<li>Lowercase letter</li>
+			<li>Number</li>
+			<li>Special sign</li>
+		</ul>
+		<form method="post" name="updatePasswordForm">
+			<input class="d-block" name="originalUsername" type="hidden" value="@Model.OriginalUsername" asp-for="@Model.OriginalUsername" readonly />
+
+			<label for="currentPassword">Old password: </label>
+			<input class="d-block" type="password" asp-for="@Model.OriginalPassword" />
+			<label for="newPassword">New password: </label>
+			<input class="d-block" type="password" asp-for="@Model.NewPassword" />
+			<label for="newConfirmedPassword">Confirm new password: </label>
+			<input class="d-block" type="password" asp-for="@Model.NewConfirmedPassword" />
+			<span asp-validation-for="@Model.NewConfirmedPassword"></span>
+			<input style="margin:2%" class="btn btn-primary" type="submit" value="Update password" asp-page-handler="UpdatePassword" />
+		</form>
+
+	</div>
+	<div class="col-12 col-md-5 col-xl-3">
+		<form method="post" name="deleteUserForm">
+			<h4>Delete account</h4>
+			<input class="d-block" name="originalUsername" type="hidden" value="@Model.OriginalUsername" asp-for="@Model.OriginalUsername" readonly hidden />
+			<input style="margin:2%" class="btn btn-danger" type="submit" value="Delete my account" asp-page-handler="DeleteUser" />
+		</form>
+
+	</div>
+</div>
