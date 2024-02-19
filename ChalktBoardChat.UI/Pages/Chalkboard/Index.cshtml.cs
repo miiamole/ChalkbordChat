@@ -21,6 +21,7 @@ namespace ChalktBoardChat.UI.Pages.Chalkboard
 		public void OnGet()
 		{
 		}
+
 		public async Task<IActionResult> OnPostAsync()
 		{
 			if (ModelState.IsValid)
@@ -43,8 +44,6 @@ namespace ChalktBoardChat.UI.Pages.Chalkboard
 					ModelState.AddModelError(string.Empty, "Something went wrong" + ex.Message);
 				}
 			}
-
-
 			return Page();
 		}
 
