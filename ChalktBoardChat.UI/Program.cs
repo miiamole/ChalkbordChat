@@ -17,6 +17,8 @@ builder.Services.AddRazorPages(option =>
 builder.Services.AddRazorPages(option => option.Conventions.AuthorizeFolder("/Admin", "AdminPolicy"));
 
 
+
+
 //Hämtar de connectionsStrings som behövs
 var chalkDbConnectionString = builder.Configuration.GetConnectionString("ChalkboardDbConnection");
 var auth_connectionString = builder.Configuration.GetConnectionString("AuthDbConnection");
@@ -32,6 +34,8 @@ builder.Services.AddDbContext<AuthDbContext>(options => options.UseSqlServer(aut
 //lägger till identityuser och roller till buildern, och använder AuthDbContext
 builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<AuthDbContext>();
 builder.Services.AddScoped<UserServices>();
+
+
 
 
 
