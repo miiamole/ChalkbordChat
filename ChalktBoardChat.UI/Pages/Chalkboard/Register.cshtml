@@ -6,6 +6,10 @@
 
 	<h1 class="text-success">Sign up for Chalkboard chat</h1>
 
+	@if (Model.ErrorMessage != null)
+	{
+		<strong class="text-danger">@Model.ErrorMessage</strong>
+	}
 
 
 
