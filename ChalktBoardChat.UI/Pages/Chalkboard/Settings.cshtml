@@ -10,6 +10,12 @@
 			<input class="d-block" name="originalUsername" type="text" value="@User.Identity.Name" readonly />
 			<label for="newUsername">New username: </label>
 			<input class="d-block" name="newUsername" type="text" asp-for="@Model.NewUsername" />
+			@if(Model.UsernameErrorMessage != null)
+			{
+				<div>
+					<strong class="text-danger">@Model.UsernameErrorMessage</strong>
+				</div>
+			}
 			<input style="margin:2%" class="btn btn-success" type="submit" value="Update username" asp-page-handler="UpdateUsername" />
 		</form>
 	</div>
@@ -32,6 +38,15 @@
 			<label for="newConfirmedPassword">Confirm new password: </label>
 			<input class="d-block" type="password" asp-for="@Model.NewConfirmedPassword" />
 			<span asp-validation-for="@Model.NewConfirmedPassword"></span>
+			@if (Model.PasswordErrorMessages != null)
+			{
+				@foreach(var errorMessage in Model.PasswordErrorMessages)
+				{
+					<div>
+						<strong class="text-danger">@errorMessage.Description</strong>
+					</div>
+				}
+			}
 			<input style="margin:2%" class="btn btn-primary" type="submit" value="Update password" asp-page-handler="UpdatePassword" />
 		</form>
 
@@ -40,6 +55,12 @@
 		<form method="post" name="deleteUserForm">
 			<h4>Delete account</h4>
 			<input class="d-block" name="originalUsername" type="hidden" value="@Model.OriginalUsername" asp-for="@Model.OriginalUsername" readonly hidden />
+			@if(Model.DeleteUserErrorMessage != null)
+			{
+				<div>
+					<strong class="text-danger">@Model.DeleteUserErrorMessage</strong>
+				</div>
+			}
 			<input style="margin:2%" class="btn btn-danger" type="submit" value="Delete my account" asp-page-handler="DeleteUser" />
 		</form>
 
