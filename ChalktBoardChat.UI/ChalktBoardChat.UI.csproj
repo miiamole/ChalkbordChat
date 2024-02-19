@@ -1,10 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="microsoft.aspnetcore.identity" Version="2.2.0" />
@@ -18,9 +18,8 @@
     </PackageReference>
   </ItemGroup>
 
-
-  <ItemGroup>
-    <ProjectReference Include="..\Chalkboard.App\Chalkboard.App.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\Chalkboard.App\Chalkboard.App.csproj" />
+	</ItemGroup>
 
 </Project>

@@ -90,8 +90,46 @@ namespace Chalkboard.App
         }
 
 
+      public async Task<IdentityResult> UpdateUsernameAsync(string currentUsername, string newUsername)
+		{
+			IdentityUser? userToUpdate = await _userManager.FindByNameAsync(currentUsername);
+			if (userToUpdate != null)
+			{
+				IdentityResult updateUsernameResult = await _userManager.SetUserNameAsync(userToUpdate, newUsername);
+				if (updateUsernameResult.Succeeded)
+				{
+					await _userManager.UpdateAsync(userToUpdate);
+					await _signInManager.SignOutAsync();
+					await _signInManager.SignInAsync(userToUpdate, true);
+				}
+				return updateUsernameResult;
+			}
+			return IdentityResult.Failed();
+		}
 
-    }
+		public async Task<IdentityResult> UpdatePasswordAsync(string username, string currentPassword, string newPassword)
+		{
+			IdentityUser? userToUpdate = await _userManager.FindByNameAsync(username);
+			if (userToUpdate != null)
+			{
+				IdentityResult changePasswordResult = await _userManager.ChangePasswordAsync(userToUpdate, currentPassword, newPassword);
+				if (changePasswordResult.Succeeded)
+				{
+					await _userManager.UpdateAsync(userToUpdate);
+				}
+				return changePasswordResult;
+			}
+			return IdentityResult.Failed();
+		}
 
+		public async Task<IdentityResult> DeleteUserAsync(string username)
+		{
+			IdentityUser? userToUpdate = await _userManager.FindByNameAsync(username);
+			if (userToUpdate != null)
+			{
+				return await _userManager.DeleteAsync(userToUpdate);
+			}
+			return IdentityResult.Failed();
 
+		}
 }

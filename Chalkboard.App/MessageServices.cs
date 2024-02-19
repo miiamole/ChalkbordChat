@@ -3,43 +3,44 @@ using ChackBoard.Data.Repositories;
 
 namespace Chalkboard.App
 {
-    public class MessageServices
-    {
-        private MessageRepository _Mrepo;
+	public class MessageServices
+	{
+		private MessageRepository _Mrepo;
 
-        public MessageServices(MessageRepository Mrepo)
-        {
-            _Mrepo = Mrepo;
-        }
+		public MessageServices(MessageRepository Mrepo)
+		{
+			_Mrepo = Mrepo;
+		}
 
-        public async Task<IEnumerable<MessageModel>> GetAll()
-        {
-            return await _Mrepo.GetAllAsync();
-        }
+		public async Task<IEnumerable<MessageModel>> GetAllAsync()
+		{
+			return (await _Mrepo.GetAllAsync()).OrderByDescending(m => m.Date);
+		}
 
-        public async Task<MessageModel?> GetMessageById(int id)
-        {
-            return await _Mrepo.GetMessageById(id);
-        }
+		public async Task<MessageModel?> GetMessageByIdAsync(int id)
+		{
+			return await _Mrepo.GetMessageByIdAsync(id);
+		}
 
-        public async Task<MessageModel?> GetMessageByUsername(string username)
-        {
-            return await _Mrepo.GetMessageByUsername(username);
-        }
+		public async Task<MessageModel?> GetMessageByUsername(string username)
+		{
+			return await _Mrepo.GetMessageByUsernameAsync(username);
+		}
 
-        public async Task<IEnumerable<MessageModel>> CreateMessage(MessageModel newMessage)
-        {
-            return await _Mrepo.CreateMessage(newMessage);
-        }
+		public async Task<IEnumerable<MessageModel>> CreateMessageAsync(MessageModel newMessage)
+		{
+			return await _Mrepo.CreateMessageAsync(newMessage);
+		}
 
-        public async Task<string> UpdateMessage(int id, string message)
-        {
-            return await _Mrepo.UpdateMessage(id, message);
-        }
+		public async Task<string> UpdateMessageAsync(int id, string message)
+		{
+			return await _Mrepo.UpdateMessageAsync(id, message);
+		}
 
-        public bool DeleteMessage(MessageModel messageToDelete)
-        {
-            return _Mrepo.DeleteMessage(messageToDelete);
-        }
-    }
+		public async Task<bool> DeleteMessageAsync(MessageModel messageToDelete)
+		{
+			return await _Mrepo.DeleteMessageAsync(messageToDelete);
+		}
+	}
+
 }
