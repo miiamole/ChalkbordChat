@@ -69,6 +69,28 @@ namespace Chalkboard.App
 
         }
 
+
+        public async Task<IdentityUser> LogOutUser(string username, string password)
+        {
+            IdentityUser? userToLogIn = await _userManager.FindByNameAsync(username);
+            if (userToLogIn != null)
+            {
+                var signInResult = await _signInManager.PasswordSignInAsync(userToLogIn, password, false, false);
+                if (signInResult.Succeeded)
+                {
+                    return userToLogIn;
+                }
+                else
+                {
+                    throw new Exception("Password not a match");
+                }
+            }
+
+            return null;
+        }
+
+
+
     }
 
 

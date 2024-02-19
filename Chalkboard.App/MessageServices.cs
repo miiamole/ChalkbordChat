@@ -12,29 +12,29 @@ namespace Chalkboard.App
             _Mrepo = Mrepo;
         }
 
-        public IEnumerable<MessageModel> GetAll()
+        public async Task<IEnumerable<MessageModel>> GetAll()
         {
-            return _Mrepo.GetAllAsync().Result;
+            return await _Mrepo.GetAllAsync();
         }
 
-        public MessageModel? GetMessageById(int id)
+        public async Task<MessageModel?> GetMessageById(int id)
         {
-            return _Mrepo.GetMessageById(id).Result;
+            return await _Mrepo.GetMessageById(id);
         }
 
-        public MessageModel? GetMessageByUsername(string username)
+        public async Task<MessageModel?> GetMessageByUsername(string username)
         {
-            return _Mrepo.GetMessageByUsername(username).Result;
+            return await _Mrepo.GetMessageByUsername(username);
         }
 
-        public IEnumerable<MessageModel> CreateMessage(MessageModel newMessage)
+        public async Task<IEnumerable<MessageModel>> CreateMessage(MessageModel newMessage)
         {
-            return _Mrepo.CreateMessage(newMessage).Result;
+            return await _Mrepo.CreateMessage(newMessage);
         }
 
-        public string UpdateMessage(int id, string message)
+        public async Task<string> UpdateMessage(int id, string message)
         {
-            return _Mrepo.UpdateMessage(id, message).Result;
+            return await _Mrepo.UpdateMessage(id, message);
         }
 
         public bool DeleteMessage(MessageModel messageToDelete)
