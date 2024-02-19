@@ -6,9 +6,15 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddAuthorization(option => option.AddPolicy("AdminPolicy", policy => policy.RequireRole("Admin")));
 // Add services to the container.
-builder.Services.AddRazorPages(option => option.Conventions.AuthorizeFolder("/Chalkboard/Message"));
-builder.Services.AddRazorPages(option => option.Conventions.AuthorizeFolder("/Chalkboard/Settings"));
+builder.Services.AddRazorPages(option =>
+{
+    option.Conventions.AuthorizePage("/Chalkboard/Message");
+    option.Conventions.AuthorizePage("/Chalkboard/Settings");
+
+});
+builder.Services.AddRazorPages(option => option.Conventions.AuthorizeFolder("/Admin", "AdminPolicy"));
 
 
 //Hämtar de connectionsStrings som behövs
