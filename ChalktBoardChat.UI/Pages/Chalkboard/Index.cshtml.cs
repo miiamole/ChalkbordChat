@@ -1,4 +1,5 @@
 using Chalkboard.App;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -14,6 +15,8 @@ namespace ChalktBoardChat.UI.Pages.Chalkboard
 
 		public string Password { get; set; }
 
+		public string ErrorMessage { get; set; }
+
 		public IndexModel(UserServices userServices)
 		{
 			_userServices = userServices;
@@ -22,29 +25,19 @@ namespace ChalktBoardChat.UI.Pages.Chalkboard
 		{
 		}
 
-		public async Task<IActionResult> OnPostAsync()
+		public async Task<IActionResult> OnPost()
 		{
-			if (ModelState.IsValid)
+			IdentityUser logInUser = await _userServices.LogInUser(Username, Password);
+			if (logInUser != null)
 			{
-				try
-				{
-					var user = await _userServices.LogInUser(Username, Password);
-					if (user != null)
-					{
+				return RedirectToPage("/Chalkboard/Message");
 
-						return RedirectToPage("/Chalkboard/Message");
-					}
-					else
-					{
-						ModelState.AddModelError(string.Empty, "Login failed. Please check username and password");
-					}
-				}
-				catch (Exception ex)
-				{
-					ModelState.AddModelError(string.Empty, "Something went wrong" + ex.Message);
-				}
 			}
-			return Page();
+			else
+			{
+				ErrorMessage = "Username or password is wrong!";
+				return Page();
+			}
 		}
 
 	}
